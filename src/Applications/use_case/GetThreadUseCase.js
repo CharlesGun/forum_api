@@ -25,8 +25,8 @@ class GetThreadUseCase {
     // }
 
     thread.comments = await Promise.all(comments.map(async (comment) => {
-      const replies = await this._replyRepository.getRepliesByCommentId(comment.id);
-      replies.map((reply) => new GetReply({
+      let replies = await this._replyRepository.getRepliesByCommentId(comment.id);
+      replies = replies.map((reply) => new GetReply({
         id: reply.id,
         content: reply.is_deleted ? '**balasan telah dihapus**' : reply.content,
         date: reply.date,
